@@ -52,3 +52,11 @@ tags
 *.exe
 *.out
 *.app
+
+#ignore cache
+*.npz
+*.off
+*.ply
+*.txt
+*.pt
+*.pth

@@ -52,60 +52,77 @@ class HumanSegOrigDataset(Dataset):
 
         # Train test split
         if self.train:
-    
-            # adobe
-            mesh_dirpath = os.path.join(self.root_dir, "meshes", "train", "adobe")
-            label_dirpath = os.path.join(self.root_dir, "segs", "train", "adobe")
+            #denoise
+            mesh_dirpath = os.path.join(self.root_dir, "train","noisy")
+            label_dirpath = os.path.join(self.root_dir, "train", "gt")
             for fname in os.listdir(mesh_dirpath):
                 mesh_fullpath = os.path.join(mesh_dirpath, fname)
-                label_fullpath = os.path.join(label_dirpath, fname[:-4] + ".txt")
+                Lname = fname.split('_')[0] +'.obj'
+                label_fullpath = os.path.join(label_dirpath, Lname)
                 mesh_files.append(mesh_fullpath)
                 label_files.append(label_fullpath)
             
-            # faust
-            mesh_dirpath = os.path.join(self.root_dir, "meshes", "train", "faust")
-            label_dirpath = os.path.join(self.root_dir, "segs", "train", "faust")
-            for fname in os.listdir(mesh_dirpath):
-                mesh_fullpath = os.path.join(mesh_dirpath, fname)
-                label_fullpath = os.path.join(label_dirpath, "faust_corrected.txt")
-                mesh_files.append(mesh_fullpath)
-                label_files.append(label_fullpath)
+            # # adobe
+            # mesh_dirpath = os.path.join(self.root_dir, "meshes", "train", "adobe")
+            # label_dirpath = os.path.join(self.root_dir, "segs", "train", "adobe")
+            # for fname in os.listdir(mesh_dirpath):
+            #     mesh_fullpath = os.path.join(mesh_dirpath, fname)
+            #     label_fullpath = os.path.join(label_dirpath, fname[:-4] + ".txt")
+            #     mesh_files.append(mesh_fullpath)
+            #     label_files.append(label_fullpath)
             
-            # mit
-            mesh_dirpath_patt = os.path.join(self.root_dir, "meshes", "train", "MIT_animation", "meshes_{}", "meshes")
-            label_dirpath = os.path.join(self.root_dir, "segs", "train", "mit")
-            pose_names = ['bouncing','handstand','march1','squat1', 'crane','jumping', 'march2', 'squat2']
-            for pose in pose_names:
-                mesh_dirpath = mesh_dirpath_patt.format(pose)
-                for fname in os.listdir(mesh_dirpath):
-                    mesh_fullpath = os.path.join(mesh_dirpath, fname)
-                    label_fullpath = os.path.join(label_dirpath, "mit_{}_corrected.txt".format(pose))
-                    mesh_files.append(mesh_fullpath)
-                    label_files.append(label_fullpath)
+            # # faust
+            # mesh_dirpath = os.path.join(self.root_dir, "meshes", "train", "faust")
+            # label_dirpath = os.path.join(self.root_dir, "segs", "train", "faust")
+            # for fname in os.listdir(mesh_dirpath):
+            #     mesh_fullpath = os.path.join(mesh_dirpath, fname)
+            #     label_fullpath = os.path.join(label_dirpath, "faust_corrected.txt")
+            #     mesh_files.append(mesh_fullpath)
+            #     label_files.append(label_fullpath)
             
-            # scape
-            mesh_dirpath = os.path.join(self.root_dir, "meshes", "train", "scape")
-            label_dirpath = os.path.join(self.root_dir, "segs", "train", "scape")
-            for fname in os.listdir(mesh_dirpath):
-                mesh_fullpath = os.path.join(mesh_dirpath, fname)
-                label_fullpath = os.path.join(label_dirpath, "scape_corrected.txt")
-                mesh_files.append(mesh_fullpath)
-                label_files.append(label_fullpath)
+            # # mit
+            # mesh_dirpath_patt = os.path.join(self.root_dir, "meshes", "train", "MIT_animation", "meshes_{}", "meshes")
+            # label_dirpath = os.path.join(self.root_dir, "segs", "train", "mit")
+            # pose_names = ['bouncing','handstand','march1','squat1', 'crane','jumping', 'march2', 'squat2']
+            # for pose in pose_names:
+            #     mesh_dirpath = mesh_dirpath_patt.format(pose)
+            #     for fname in os.listdir(mesh_dirpath):
+            #         mesh_fullpath = os.path.join(mesh_dirpath, fname)
+            #         label_fullpath = os.path.join(label_dirpath, "mit_{}_corrected.txt".format(pose))
+            #         mesh_files.append(mesh_fullpath)
+            #         label_files.append(label_fullpath)
+            
+            # # scape
+            # mesh_dirpath = os.path.join(self.root_dir, "meshes", "train", "scape")
+            # label_dirpath = os.path.join(self.root_dir, "segs", "train", "scape")
+            # for fname in os.listdir(mesh_dirpath):
+            #     mesh_fullpath = os.path.join(mesh_dirpath, fname)
+            #     label_fullpath = os.path.join(label_dirpath, "scape_corrected.txt")
+            #     mesh_files.append(mesh_fullpath)
+            #     label_files.append(label_fullpath)
             
         else:
 
-            # shrec
-            mesh_dirpath = os.path.join(self.root_dir, "meshes", "test", "shrec")
-            label_dirpath = os.path.join(self.root_dir, "segs", "test", "shrec")
-            for iShrec in range(1,21):
-                if iShrec == 16 or iShrec == 18: continue # why are these messing from the dataset? so many questions...
-                if iShrec == 12:
-                    mesh_fname = "12_fix_orientation.off"
-                else:
-                    mesh_fname = "{}.off".format(iShrec)
-                label_fname = "shrec_{}_full.txt".format(iShrec)
-                mesh_fullpath = os.path.join(mesh_dirpath, mesh_fname)
-                label_fullpath = os.path.join(label_dirpath, label_fname)
+            # # shrec
+            # mesh_dirpath = os.path.join(self.root_dir, "meshes", "test", "shrec")
+            # label_dirpath = os.path.join(self.root_dir, "segs", "test", "shrec")
+            # for iShrec in range(1,21):
+            #     if iShrec == 16 or iShrec == 18: continue # why are these messing from the dataset? so many questions...
+            #     if iShrec == 12:
+            #         mesh_fname = "12_fix_orientation.off"
+            #     else:
+            #         mesh_fname = "{}.off".format(iShrec)
+            #     label_fname = "shrec_{}_full.txt".format(iShrec)
+            #     mesh_fullpath = os.path.join(mesh_dirpath, mesh_fname)
+            #     label_fullpath = os.path.join(label_dirpath, label_fname)
+            #     mesh_files.append(mesh_fullpath)
+            #     label_files.append(label_fullpath)
+            mesh_dirpath = os.path.join(self.root_dir, "test","noisy")
+            label_dirpath = os.path.join(self.root_dir, "test", "gt")
+            for fname in os.listdir(mesh_dirpath):
+                mesh_fullpath = os.path.join(mesh_dirpath, fname)
+                Lname = fname.split('_')[0] +'.obj'
+                label_fullpath = os.path.join(label_dirpath, Lname)
                 mesh_files.append(mesh_fullpath)
                 label_files.append(label_fullpath)
 
@@ -117,15 +134,16 @@ class HumanSegOrigDataset(Dataset):
             print("loading mesh " + str(mesh_files[iFile]))
 
             verts, faces = pp3d.read_mesh(mesh_files[iFile])
-            labels = np.loadtxt(label_files[iFile]).astype(int)-1
+            labels, dontcare = pp3d.read_mesh(label_files[iFile])
 
             # to torch
             verts = torch.tensor(np.ascontiguousarray(verts)).float()
             faces = torch.tensor(np.ascontiguousarray(faces))
-            labels = torch.tensor(np.ascontiguousarray(labels))
-
+            labels = torch.tensor(np.ascontiguousarray(labels)).float()
+       
             # center and unit scale
             verts = diffusion_net.geometry.normalize_positions(verts)
+            labels = diffusion_net.geometry.normalize_positions(labels)
 
             self.verts_list.append(verts)
             self.faces_list.append(faces)
