@@ -56,6 +56,7 @@ class HumanSegOrigDataset(Dataset):
             mesh_dirpath = os.path.join(self.root_dir, "train","noisy")
             label_dirpath = os.path.join(self.root_dir, "train", "gt")
             for fname in os.listdir(mesh_dirpath):
+                if not fname.endswith('.obj'): continue
                 mesh_fullpath = os.path.join(mesh_dirpath, fname)
                 Lname = fname.split('_')[0] +'.obj'
                 label_fullpath = os.path.join(label_dirpath, Lname)
@@ -120,6 +121,7 @@ class HumanSegOrigDataset(Dataset):
             mesh_dirpath = os.path.join(self.root_dir, "test","noisy")
             label_dirpath = os.path.join(self.root_dir, "test", "gt")
             for fname in os.listdir(mesh_dirpath):
+                if not fname.endswith('.obj'): continue
                 mesh_fullpath = os.path.join(mesh_dirpath, fname)
                 Lname = fname.split('_')[0] +'.obj'
                 label_fullpath = os.path.join(label_dirpath, Lname)
